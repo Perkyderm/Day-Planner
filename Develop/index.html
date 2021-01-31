@@ -30,20 +30,7 @@
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
-      <div class="row">
-        <div class="col-md-1 hour pt-4">7AM</div>
-        <input id="7Row" class="user-event-input col-md-10 event-input-block" />
-        <div class="col-md-1 saveBtn" data-hour="9">
-          <i class="fas fa-lock" aria-hidden="true"></i>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-1 hour pt-4">8AM</div>
-        <input id="8Row" class="user-event-input col-md-10 event-input-block" />
-        <div class="col-md-1 saveBtn" data-hour="9">
-          <i class="fas fa-lock" aria-hidden="true"></i>
-        </div>
-      </div>
+      
       <div class="row">
         <div class="col-md-1 hour pt-4">9AM</div>
         <input id="9Row" class="user-event-input col-md-10 event-input-block" />
@@ -149,30 +136,16 @@
         </div>
       </div>
     
-      <div class="row">
-        <div class="col-md-1 hour pt-4">9PM</div>
-        <input id="9Row" class="user-event-input col-md-10 event-input-block" />
-        <div class="col-md-1 saveBtn" data-hour="5">
-          <i class="fas fa-lock" aria-hidden="true"></i>
-        </div>
-      </div>
-    
-      <div class="row">
-        <div class="col-md-1 hour pt-4">10PM</div>
-        <input id="10Row" class="user-event-input col-md-10 event-input-block" />
-        <div class="col-md-1 saveBtn" data-hour="5">
-          <i class="fas fa-lock" aria-hidden="true"></i>
-        </div>
-      </div>
-    
+      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script>
       var saveBtn = $(".saveBtn");
       var currentHour = moment().format("HH"); // Variable for current hour
       var currentHourInt = parseInt(currentHour); // Parse it so that hour returns as an integer
 
       // Set data attributes to each hour input element so that the function below can assign a color to each row based on the current hour
-      $("#7Row").attr("data-time", moment("7:00 am", "h:mm a").format("HH"));
-      $("#8Row").attr("data-time", moment("8:00 am", "h:mm a").format("HH"));
+      
       $("#9Row").attr("data-time", moment("9:00 am", "h:mm a").format("HH"));
       $("#10Row").attr("data-time", moment("10:00 am", "hh:mm a").format("HH"));
       $("#11Row").attr("data-time", moment("11:00 am", "hh:mm a").format("HH"));
@@ -185,8 +158,7 @@
       $("#6Row").attr("data-time", moment("6:00 pm", "h:mm a").format("HH"));
       $("#7Row").attr("data-time", moment("7:00 pm", "h:mm a").format("HH"));
       $("#8Row").attr("data-time", moment("8:00 pm", "h:mm a").format("HH"));
-      $("#9Row").attr("data-time", moment("9:00 pm", "h:mm a").format("HH"));
-      $("#10Row").attr("data-time", moment("10:00 pm", "h:mm a").format("HH"));
+      
 
       $(document).ready(function () {
         // Function to store inputted data
@@ -198,29 +170,42 @@
         function addDate() {
           $("#currentDay").html(moment().format("MMMM Do YYYY, h:mm a"));
         }
-        
+
         setInterval(addDate, 1000);
 
-        // Change color in each row by adding in am attribute (above) for each input line to reflect the current hour
+        
         for (var i = 0; i <= 12; i++) {
-          var inputHour = $("#" + i + "Row").attr("data-time"); // Variable for the hour of the row
-          var inputHourInt = parseInt(inputHour); // Parse it so that hour returns as an integer
+          var inputHour = $("#" + i + "Row").attr("data-time"); 
+          var inputHourInt = parseInt(inputHour); 
 
           if (currentHourInt === inputHourInt) {
-            $("#" + i + "Row").addClass("present"); // Applies red color if within the present hour
+            $("#" + i + "Row").addClass("present"); 
           }
           if (currentHourInt > inputHourInt) {
-            // Applies grey color if hour is in the future
             $("#" + i + "Row").addClass("past");
           }
           if (currentHourInt < inputHourInt) {
-            // Applies green color if hour is in the future
+            
             $("#" + i + "Row").addClass("future");
           }
         }
       
+        saveBtn.on("click", function () {
+
+          var rowHour = $(this).attr("data-hour"); 
+          var input = $("#" + rowHour + "Row").val(); 
+          localStorage.setItem(rowHour, input); 
+        });
+
+        
+        function renderPlans() {
+          for (var i = 0; i <= 12; i++) {
+            $("#" + i + "Row").val(localStorage.getItem(i));
+          }
+        }
+      });
+      
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    
   </body>
 </html>
