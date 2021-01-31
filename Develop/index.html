@@ -198,6 +198,26 @@
         function addDate() {
           $("#currentDay").html(moment().format("MMMM Do YYYY, h:mm a"));
         }
+        
+        setInterval(addDate, 1000);
+
+        // Change color in each row by adding in am attribute (above) for each input line to reflect the current hour
+        for (var i = 0; i <= 12; i++) {
+          var inputHour = $("#" + i + "Row").attr("data-time"); // Variable for the hour of the row
+          var inputHourInt = parseInt(inputHour); // Parse it so that hour returns as an integer
+
+          if (currentHourInt === inputHourInt) {
+            $("#" + i + "Row").addClass("present"); // Applies red color if within the present hour
+          }
+          if (currentHourInt > inputHourInt) {
+            // Applies grey color if hour is in the future
+            $("#" + i + "Row").addClass("past");
+          }
+          if (currentHourInt < inputHourInt) {
+            // Applies green color if hour is in the future
+            $("#" + i + "Row").addClass("future");
+          }
+        }
       
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
