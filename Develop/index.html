@@ -124,7 +124,7 @@
           <i class="fas fa-lock" aria-hidden="true"></i>
         </div>
       </div>
-    </div>
+    
       <div class="row">
         <div class="col-md-1 hour pt-4">6PM</div>
         <input id="6Row" class="user-event-input col-md-10 event-input-block" />
@@ -132,7 +132,7 @@
           <i class="fas fa-lock" aria-hidden="true"></i>
         </div>
       </div>
-    </div>
+    
       <div class="row">
         <div class="col-md-1 hour pt-4">7PM</div>
         <input id="7Row" class="user-event-input col-md-10 event-input-block" />
@@ -140,7 +140,7 @@
           <i class="fas fa-lock" aria-hidden="true"></i>
         </div>
       </div>
-    </div>
+    
       <div class="row">
         <div class="col-md-1 hour pt-4">8PM</div>
         <input id="8Row" class="user-event-input col-md-10 event-input-block" />
@@ -148,7 +148,7 @@
           <i class="fas fa-lock" aria-hidden="true"></i>
         </div>
       </div>
-    </div>
+    
       <div class="row">
         <div class="col-md-1 hour pt-4">9PM</div>
         <input id="9Row" class="user-event-input col-md-10 event-input-block" />
@@ -156,7 +156,7 @@
           <i class="fas fa-lock" aria-hidden="true"></i>
         </div>
       </div>
-    </div>
+    
       <div class="row">
         <div class="col-md-1 hour pt-4">10PM</div>
         <input id="10Row" class="user-event-input col-md-10 event-input-block" />
@@ -164,7 +164,7 @@
           <i class="fas fa-lock" aria-hidden="true"></i>
         </div>
       </div>
-    </div>
+    
     <script>
       var saveBtn = $(".saveBtn");
       var currentHour = moment().format("HH"); // Variable for current hour
@@ -188,7 +188,16 @@
       $("#9Row").attr("data-time", moment("9:00 pm", "h:mm a").format("HH"));
       $("#10Row").attr("data-time", moment("10:00 pm", "h:mm a").format("HH"));
 
-      //start jQuery
+      $(document).ready(function () {
+        // Function to store inputted data
+        renderPlans();
+
+        // Show Date and Time in Header
+        $("#currentDay").append();
+
+        function addDate() {
+          $("#currentDay").html(moment().format("MMMM Do YYYY, h:mm a"));
+        }
       
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
